@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+	<application>contasmedicastransf-h</application>
+	<version>1</version>
+	<threadsafe>true</threadsafe>
+	<warmup-requests-enabled>true</warmup-requests-enabled>
+
+	<module>ats-api</module>
+
+	<instance-class>F2</instance-class>
+
+<!--	<automatic-scaling>
+		<min-idle-instances>1</min-idle-instances>
+		<max-idle-instances>1</max-idle-instances>
+		<min-pending-latency>500ms</min-pending-latency>
+		<max-pending-latency>2000ms</max-pending-latency>
+		<max-concurrent-requests>80</max-concurrent-requests>
+	</automatic-scaling>-->
+
+	<automatic-scaling>
+		<min-idle-instances>1</min-idle-instances>
+		<max-idle-instances>automatic</max-idle-instances>
+		<min-pending-latency>automatic</min-pending-latency>
+		<max-pending-latency>60ms</max-pending-latency>
+		<max-concurrent-requests>30</max-concurrent-requests>
+	</automatic-scaling>
+
+</appengine-web-app>
