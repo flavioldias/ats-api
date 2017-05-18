@@ -13,18 +13,6 @@
 	</listener>
 
 	<filter>
-		<filter-name>authFilter</filter-name>
-		<filter-class>br.com.sulamerica.ats.api.security.filter.AuthFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>authFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>INCLUDE</dispatcher>
-		<dispatcher>FORWARD</dispatcher>
-	</filter-mapping>
-
-	<filter>
 		<filter-name>ObjectifyFilter</filter-name>
 		<filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
 	</filter>
