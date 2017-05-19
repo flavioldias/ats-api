@@ -2,16 +2,18 @@ package br.com.sulamerica.ats.api.beans;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+
 public class Ats {
 	
 	private String codigoDaAts;	
-	private int codigoDaGuia;	
-	private String nomeDoBeneficiario;	
+	private Integer codigoDaGuia;	
+	private String nomeDoBeneficiario;
+	@JsonFormat(shape = Shape.STRING, pattern = "dd/MM/yyyy", locale = "pt-BR",timezone = "America/Sao_Paulo")
 	private Date dataDePagamento;	
-	private String totalGlosado;	
-	private int tamanhoPdf;	
-	private String arquivoBase64;
-
+	private Integer totalGlosado;	
+	private FilePDF filePDF; 
 	
 	public String getCodigoDaAts() {
 		return codigoDaAts;
@@ -25,7 +27,7 @@ public class Ats {
 		return codigoDaGuia;
 	}
 
-	public void setCodigoDaGuia(int codigoDaGuia) {
+	public void setCodigoDaGuia(Integer codigoDaGuia) {
 		this.codigoDaGuia = codigoDaGuia;
 	}
 
@@ -45,28 +47,19 @@ public class Ats {
 		this.dataDePagamento = dataDePagamento;
 	}
 
-	public String getTotalGlosado() {
+	public Integer getTotalGlosado() {
 		return totalGlosado;
 	}
 
-	public void setTotalGlosado(String totalGlosado) {
+	public void setTotalGlosado(Integer totalGlosado) {
 		this.totalGlosado = totalGlosado;
 	}
 
-	public int gettamanhoPdf() {
-		return tamanhoPdf;
+	public FilePDF getFilePDF() {
+		return filePDF;
 	}
 
-	public void settamanhoPdf(int tamanhoPdf) {
-		this.tamanhoPdf = tamanhoPdf;
-	}
-
-	public String getarquivoBase64() {
-		return arquivoBase64;
-	}
-
-	public void setarquivoBase64(String arquivoBase64) {
-		this.arquivoBase64 = arquivoBase64;
-	}
-	
+	public void setFilePDF(FilePDF filePDF) {
+		this.filePDF = filePDF;
+	}	
 }

@@ -2,6 +2,10 @@ package br.com.sulamerica.ats.api.utils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.springframework.util.StringUtils;
+
 import java.text.ParseException;
 
 public class ValidaEntrada {
@@ -9,27 +13,15 @@ public class ValidaEntrada {
 	private static final String FORMATO = "dd/MM/yyyy";
 
 	public boolean validaCodigoAts(String codigoDaAts) {
-		if ((codigoDaAts == null) || (codigoDaAts.equals(" "))) {
-			return false;
-		} else {
-			return true;
-		}
+		return !StringUtils.isEmpty(codigoDaAts);		
 	}
 
-	public boolean validaCodigoDaGuia(int codigoDaGuia) {
-		if (codigoDaGuia == 0) {
-			return false;
-		} else {
-			return true;
-		}
+	public boolean validaCodigoDaGuia(Integer codigoDaGuia) {
+		return codigoDaGuia != null;
 	}
 
 	public boolean validaNomeDoBeneficiario(String nomeDoBeneficiario) {
-		if ((nomeDoBeneficiario == null) || (nomeDoBeneficiario.equals(" "))) {
-			return false;
-		} else {
-			return true;
-		}
+		return !StringUtils.isEmpty(nomeDoBeneficiario);	
 	}
 
 	public boolean validaDataDePagamento(String dataDePagamento) {
@@ -47,19 +39,16 @@ public class ValidaEntrada {
 		}
 	}
 
-	public boolean validaTotalGlosado(int totalGlosado){
-		if (totalGlosado <= 0) {
-			return false;
-		} else {
-			return true;
-		}		
+	public boolean validaTotalGlosado(Integer totalGlosado){
+		return totalGlosado != null;
 	}
 
-	public boolean validaTamanhoPDF(int tamanhoPDF){
-		if (tamanhoPDF <= 0) {
-			return false;
-		} else {
-			return true;
-		}		
+	public boolean validaTamanhoPDF(Long tamanhoPDF){
+		return (tamanhoPDF != null) && (tamanhoPDF != 0);
+	}
+
+	public boolean validaArquivoBase64(String arquivoBase64){
+		return !StringUtils.isEmpty(arquivoBase64);	
 	}
 }
+	
