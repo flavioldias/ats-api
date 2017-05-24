@@ -1,47 +1,43 @@
 package br.com.sulamerica.ats.api.controller;
 
-import br.com.sulamerica.ats.api.beans.Ats;
-import br.com.sulamerica.ats.api.utils.ValidaEntrada;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.sulamerica.ats.api.beans.Ats;
+import br.com.sulamerica.ats.api.beans.ValidationException;
+import br.com.sulamerica.ats.api.service.AtsService;
 
 @RestController
 @RequestMapping(value = "ats-api")
-@Lazy(value = true)
+@Lazy(true)
 public class AtsController {
 
+	@Autowired
+	private AtsService service;
+
 	@RequestMapping(value = "upload", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public boolean upload(@RequestBody Ats ats) {
- 
-		ValidaEntrada valida = new ValidaEntrada();
+	@ResponseStatus(value = HttpStatus.CREATED)
+	public Ats upload(@RequestBody Ats ats) {
+
+		service.trataEntrada(ats);
+		service.pdfGeneration(ats);
 		
-		if (!valida.validaCodigoAts(ats.getCodigoDaAts())){
-			return false;
-		}
+		return ats;
+
+	}
+
+	@ExceptionHandler(ValidationException.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public void handleValidationException(ValidationException e){
 		
-		if (!valida.validaCodigoDaGuia(ats.getCodigoDaGuia())){
-			return false;
-		}
-		
-		if (!valida.validaNomeDoBeneficiario(ats.getNomeDoBeneficiario())){
-			return false;
-		}
-		//valida.validaDataDePagamento(ats.getDataDePagamento());
-		if (!valida.validaTotalGlosado(ats.getTotalGlosado())){
-			return false;
-		}
-		
-		if(!valida.validaTamanhoPDF(ats.getFilePDF().getTamanhoPdf())){
-			return false;
-		}
-		
-		if(!valida.validaArquivoBase64(ats.getFilePDF().getArquivoBase64())){
-			return false;
-		}
-		
-		return true;
 	}
 
 }

@@ -1,42 +1,41 @@
 package br.com.sulamerica.ats.api.utils;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
 
 import br.com.sulamerica.ats.api.beans.ValidationException;
 
-import java.text.ParseException;
-
-public class ValidaEntrada {
+@Component
+public class AtsValidatorImpl implements AtsValidator {
 
 	private static final String FORMATO = "dd/MM/yyyy";
 
-	public boolean validaCodigoAts(String codigoDaAts) {
-		if (StringUtils.isEmpty(codigoDaAts) || codigoDaAts == " ") {
+	@Override
+	public void validaCodigoAts(String codigoDaAts) {
+		if (StringUtils.isBlank(codigoDaAts)) {
 			throw new ValidationException("Erro entrada condigo Ats");
-		} else {
-			return true;
 		}
 	}
-
-	public boolean validaCodigoDaGuia(Integer codigoDaGuia) {
-		if (codigoDaGuia == null) {
+	
+	@Override
+	public void validaCodigoDaGuia(Integer codigoDaGuia) {
+		if (codigoDaGuia == null || codigoDaGuia.equals(0)) {
 			throw new ValidationException("Erro entrada codigo da guia");
-		} else {
-			return true;
 		}
 	}
-
-	public boolean validaNomeDoBeneficiario(String nomeDoBeneficiario) {
-		if (StringUtils.isEmpty(nomeDoBeneficiario)) {
+	
+	@Override
+	public void validaNomeDoBeneficiario(String nomeDoBeneficiario) {
+		if (StringUtils.isBlank(nomeDoBeneficiario)) {
 			throw new ValidationException("Erro entrada nome do beneficiario");
-		} else {
-			return true;
 		}
 	}
 
+	@Override
 	public boolean validaDataDePagamento(String dataDePagamento) {
 		if (dataDePagamento == null) {
 			return false;
@@ -52,27 +51,24 @@ public class ValidaEntrada {
 		}
 	}
 
-	public boolean validaTotalGlosado(Integer totalGlosado) {
-		if (totalGlosado == null) {
+	@Override
+	public void validaTotalGlosado(Integer totalGlosado) {
+		if (totalGlosado == null || totalGlosado.equals(0)) {
 			throw new ValidationException("Erro entrada total glosado");
-		} else {
-			return true;
 		}
 	}
 
-	public boolean validaTamanhoPDF(Long tamanhoPDF) {
+	@Override
+	public void validaTamanhoPDF(Long tamanhoPDF) {
 		if ((tamanhoPDF == null) || (tamanhoPDF == 0)) {
 			throw new ValidationException("Erro entrada tamanho PDF");
-		} else {
-			return true;
 		}
 	}
 
-	public boolean validaArquivoBase64(String arquivoBase64) {
-		if (StringUtils.isEmpty(arquivoBase64)) {
+	@Override
+	public void validaArquivoBase64(String arquivoBase64) {
+		if (StringUtils.isBlank(arquivoBase64)) {
 			throw new ValidationException("Erro entrada arquivo64");
-		} else {
-			return true;
 		}
 	}
 }
